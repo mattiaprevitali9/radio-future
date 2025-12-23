@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <link rel="icon" type="image/x-icon" href="log.ico">
+  <meta charset="UTF-8">
+  <title>Palinsesto - Radio Future</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    .logo img {
+      height: 40px;
+      width: auto;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="logo">
+      <img src="logo.jpeg" alt="Radio Future Logo">
+      <span>RADIO FUTURE</span>
+    </div>
+    <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="chi-siamo.html">Chi siamo</a></li>
+      <li><a href="palinsesto.html">Palinsesto</a></li>
+      <li><a href="programmi.html">Programmi</a></li>
+      <li><a href="podcast.html">Podcast</a></li>
+      <li><a href="speaker.html">Speaker</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  </div>
+</nav>
+
+<section class="container">
+  <h2>📅 Palinsesto Settimanale</h2>
+  <div style="overflow-x: auto;">
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th>Orario</th>
+          <th>Lunedì</th>
+          <th>Martedì</th>
+          <th>Mercoledì</th>
+          <th>Giovedì</th>
+          <th>Venerdì</th>
+          <th>Sabato</th>
+          <th>Domenica</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>...</td>
+          <td colspan="7">...</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('active');
+}
+function toggleTheme() {
+  document.body.classList.toggle('dark-theme');
+}
+</script>
+
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+async function loadPalinsestoContent() {
+  try {
+    const res = await fetch('/content/pages/palinsesto.json');
+    if (res.ok) {
+      const data = await res.json();
+      const mainSection = document.querySelector('section.container');
+      if (mainSection && data.schedule && data.schedule.length > 0) {
+        let html = '<h2>📅 Palinsesto Settimanale</h2>';
+        html += '<section class="schedule-section"><div style="overflow-x: auto;"><table class="schedule-table"><thead><tr>';
+        html += '<th>Orario</th><th>Lunedì</th><th>Martedì</th><th>Mercoledì</th><th>Giovedì</th><th>Venerdì</th><th>Sabato</th><th>Domenica</th>';
+        html += '</tr></thead><tbody>';
+        data.schedule.forEach(slot => {
+          html += `<tr><td>${slot.time}</td><td>${slot.monday}</td><td>${slot.tuesday}</td><td>${slot.wednesday}</td><td>${slot.thursday}</td><td>${slot.friday}</td><td>${slot.saturday}</td><td>${slot.sunday}</td></tr>`;
+        });
+        html += '</tbody></table></div></section>';
+        mainSection.innerHTML = html;
+      }
+    }
+  } catch (e) { console.log('Default'); }
+}
+loadPalinsestoContent();
+</script>
+
+</body>
+</html>

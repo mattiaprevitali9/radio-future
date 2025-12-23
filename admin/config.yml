@@ -1,0 +1,124 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+locale: 'it'
+
+collections:
+  # IMPOSTAZIONI HOMEPAGE
+  - name: "settings"
+    label: "⚙️ Impostazioni Homepage"
+    files:
+      - name: "general"
+        label: "Impostazioni Generali"
+        file: "content/settings.json"
+        fields:
+          - {label: "Titolo Hero", name: "hero_title", widget: "string"}
+          - {label: "Sottotitolo Hero", name: "hero_subtitle", widget: "string"}
+          - {label: "URL Stream Radio", name: "stream_url", widget: "string"}
+          - {label: "Testo 'In Onda'", name: "now_playing_text", widget: "string"}
+          - {label: "Programma Corrente", name: "current_program", widget: "string"}
+
+  # PROGRAMMI IN ONDA (Homepage)
+  - name: "programs"
+    label: "📻 Programmi Settimana (Home)"
+    folder: "content/programs"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Titolo", name: "title", widget: "string"}
+      - {label: "Orario", name: "schedule", widget: "string"}
+      - {label: "Descrizione", name: "description", widget: "text"}
+      - {label: "Ordine", name: "order", widget: "number", default: 1}
+      - {label: "Attivo", name: "active", widget: "boolean", default: true}
+
+  # PAGINA CHI SIAMO
+  - name: "page_chi_siamo"
+    label: "📄 Pagina Chi Siamo"
+    files:
+      - name: "chi_siamo"
+        label: "Contenuto Chi Siamo"
+        file: "content/pages/chi-siamo.json"
+        fields:
+          - {label: "HTML Completo", name: "html_content", widget: "text", hint: "Incolla qui tutto il contenuto HTML della pagina"}
+
+  # PALINSESTO
+  - name: "page_palinsesto"
+    label: "📅 Pagina Palinsesto"
+    files:
+      - name: "palinsesto"
+        label: "Tabella Palinsesto"
+        file: "content/pages/palinsesto.json"
+        fields:
+          - label: "Righe Tabella"
+            name: "schedule"
+            widget: "list"
+            fields:
+              - {label: "Orario", name: "time", widget: "string"}
+              - {label: "Lunedì", name: "monday", widget: "string"}
+              - {label: "Martedì", name: "tuesday", widget: "string"}
+              - {label: "Mercoledì", name: "wednesday", widget: "string"}
+              - {label: "Giovedì", name: "thursday", widget: "string"}
+              - {label: "Venerdì", name: "friday", widget: "string"}
+              - {label: "Sabato", name: "saturday", widget: "string"}
+              - {label: "Domenica", name: "sunday", widget: "string"}
+
+  # PROGRAMMI DETTAGLIO
+  - name: "page_programmi"
+    label: "🎙️ Pagina Programmi"
+    files:
+      - name: "programmi"
+        label: "Lista Programmi"
+        file: "content/pages/programmi.json"
+        fields:
+          - label: "Programmi"
+            name: "programs_list"
+            widget: "list"
+            fields:
+              - {label: "Nome Programma", name: "name", widget: "string"}
+              - {label: "Conduttore", name: "host", widget: "string"}
+              - {label: "Orario", name: "schedule", widget: "string"}
+              - {label: "Descrizione", name: "description", widget: "text"}
+              - {label: "Link Instagram", name: "instagram", widget: "string", required: false}
+              - {label: "Link Twitter", name: "twitter", widget: "string", required: false}
+              - {label: "Link Altro", name: "other", widget: "string", required: false}
+
+  # PODCAST
+  - name: "page_podcast"
+    label: "🎧 Pagina Podcast"
+    files:
+      - name: "podcast"
+        label: "Lista Podcast"
+        file: "content/pages/podcast.json"
+        fields:
+          - label: "Podcast"
+            name: "podcasts"
+            widget: "list"
+            fields:
+              - {label: "Titolo", name: "title", widget: "string"}
+              - {label: "Descrizione", name: "description", widget: "text"}
+              - {label: "Nome File Immagine", name: "image", widget: "string", hint: "es: radio.png"}
+              - {label: "Link Podcast", name: "link", widget: "string"}
+
+  # SPEAKER
+  - name: "page_speaker"
+    label: "🎤 Pagina Speaker"
+    files:
+      - name: "speaker"
+        label: "Team Speaker"
+        file: "content/pages/speaker.json"
+        fields:
+          - label: "Speaker"
+            name: "speakers"
+            widget: "list"
+            fields:
+              - {label: "Nome", name: "name", widget: "string"}
+              - {label: "Emoji Avatar", name: "emoji", widget: "string", default: "🎧"}
+              - {label: "Programma", name: "program", widget: "string"}
+              - {label: "Bio", name: "bio", widget: "text"}
+              - {label: "Link Instagram", name: "instagram", widget: "string", required: false}
+              - {label: "Link Twitter", name: "twitter", widget: "string", required: false}

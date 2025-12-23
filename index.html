@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <link rel="icon" type="image/x-icon" href="log.ico">
+  <meta charset="UTF-8">
+  <title>Radio Future</title>
+  <meta name="description" content="Radio Future è la radio della musica del futuro">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .player {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #111;
+      color: #fff;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .player a.button {
+      display: inline-block;
+      margin: 10px 0;
+      padding: 10px 20px;
+      background-color: #ff5722;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    .player a.button:hover {
+      background-color: #e64a19;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    .logo img {
+      height: 40px;
+      width: auto;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="logo">
+      <img src="logo.jpeg" alt="Radio Future Logo">
+      RADIO FUTURE
+    </div>
+    <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="chi-siamo.html">Chi siamo</a></li>
+      <li><a href="palinsesto.html">Palinsesto</a></li>
+      <li><a href="programmi.html">Programmi</a></li>
+      <li><a href="podcast.html">Podcast</a></li>
+      <li><a href="speaker.html">Speaker</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-content">
+    <h1>RADIO FUTURE</h1>
+    <div class="player">
+      <div class="now-playing">IN ONDA ORA</div>
+      <div class="program-name">RADIO FUTURE</div>
+      <a href="https://zeno.fm/radio/radio-future-tkos/" target="_blank" rel="noopener noreferrer" class="button">
+        ▶ Ascolta su Zeno.fm
+      </a>
+    </div>
+  </div>
+</div>
+
+<section class="container">
+  <h2>📅 In onda questa settimana</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>JACK! SI GIRA</h3>
+      <p class="news-date">Giovedì • 17:00 — 18:00</p>
+      <p>Il programma sul cinema con Giacomo "Jack" Bettinelli: storie, colonne sonore e grandi film.</p>
+    </div>
+    <div class="card">
+      <h3>RADIO FUTURE: IL PODCAST</h3>
+      <p class="news-date">Mensile • Lunedì • 16:00</p>
+      <p>Il podcast ufficiale di Radio Future con Lorenzo Magoni e Rebecca Cabrini.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('active');
+}
+function toggleTheme() {
+  document.body.classList.toggle('dark-theme');
+}
+</script>
+
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+async function loadHomepageContent() {
+  try {
+    const settingsRes = await fetch('/content/settings.json');
+    if (settingsRes.ok) {
+      const settings = await settingsRes.json();
+      const heroTitle = document.querySelector('.hero-content h1');
+      const nowPlaying = document.querySelector('.now-playing');
+      const programName = document.querySelector('.program-name');
+      const streamLink = document.querySelector('.player a.button');
+      if (heroTitle) heroTitle.textContent = settings.hero_title;
+      if (nowPlaying) nowPlaying.textContent = settings.now_playing_text;
+      if (programName) programName.textContent = settings.current_program;
+      if (streamLink) streamLink.href = settings.stream_url;
+    }
+    const programsRes = await fetch('/content/programs-list.json');
+    if (programsRes.ok) {
+      const programs = await programsRes.json();
+      const mainSection = document.querySelector('section.container');
+      if (mainSection && programs.length > 0) {
+        let html = '<h2>📅 In onda questa settimana</h2>';
+        html += '<section class="programs-week-section"><div class="grid">';
+        programs.filter(p => p.active).sort((a, b) => (a.order || 0) - (b.order || 0)).forEach(prog => {
+          html += `<div class="card"><h3>${prog.title}</h3><p class="news-date">${prog.schedule}</p><p>${prog.description}</p></div>`;
+        });
+        html += '</div></section>';
+        mainSection.innerHTML = html;
+      }
+    }
+  } catch (e) { console.log('Default content'); }
+}
+loadHomepageContent();
+</script>
+
+</body>
+</html>

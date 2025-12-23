@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <link rel="icon" type="image/x-icon" href="log.ico">
+  <meta charset="UTF-8">
+  <title>Programmi - Radio Future</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    .logo img {
+      height: 40px;
+      width: auto;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="logo">
+      <img src="logo.jpeg" alt="Radio Future Logo">
+      <span>RADIO FUTURE</span>
+    </div>
+    <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="chi-siamo.html">Chi siamo</a></li>
+      <li><a href="palinsesto.html">Palinsesto</a></li>
+      <li><a href="programmi.html">Programmi</a></li>
+      <li><a href="podcast.html">Podcast</a></li>
+      <li><a href="speaker.html">Speaker</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  </div>
+</nav>
+
+<section class="container">
+  <h2>🎙️ I Nostri Programmi</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>JACK! SI GIRA</h3>
+      <p><strong>Conduttore:</strong> Giacomo "Jack" Bettinelli</p>
+      <p><strong>Orario:</strong> Giovedì • 17:00 — 18:00</p>
+      <p>Il programma sul cinema con Giacomo "Jack" Bettinelli: storie, colonne sonore e grandi film.</p>
+      <div class="social-links">
+        <a href="#">📷</a>
+        <a href="#">🦅</a>
+        <a href="#">💬</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('active');
+}
+function toggleTheme() {
+  document.body.classList.toggle('dark-theme');
+}
+</script>
+
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+async function loadProgrammiContent() {
+  try {
+    const res = await fetch('/content/pages/programmi.json');
+    if (res.ok) {
+      const data = await res.json();
+      const mainSection = document.querySelector('section.container');
+      if (mainSection && data.programs_list && data.programs_list.length > 0) {
+        let html = '<h2>🎙️ I Nostri Programmi</h2>';
+        html += '<section class="programs-list-section"><div class="grid">';
+        data.programs_list.forEach(prog => {
+          let socialLinks = '';
+          if (prog.instagram) socialLinks += `<a href="${prog.instagram}">📷</a>`;
+          if (prog.twitter) socialLinks += `<a href="${prog.twitter}">🦅</a>`;
+          if (prog.other) socialLinks += `<a href="${prog.other}">💬</a>`;
+          html += `<div class="card"><h3>${prog.name}</h3><p><strong>Conduttore:</strong> ${prog.host}</p><p><strong>Orario:</strong> ${prog.schedule}</p><p>${prog.description}</p>${socialLinks ? '<div class="social-links">' + socialLinks + '</div>' : ''}</div>`;
+        });
+        html += '</div></section>';
+        mainSection.innerHTML = html;
+      }
+    }
+  } catch (e) { console.log('Default'); }
+}
+loadProgrammiContent();
+</script>
+
+</body>
+</html>

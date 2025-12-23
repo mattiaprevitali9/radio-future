@@ -1,0 +1,16 @@
+{
+  "podcasts": [
+    {
+      "title": "Radio Future: il Podcast",
+      "description": "Il web-podcast più giovane d'Italia! Ogni primo lunedì del mese con episodio disponibile alle 17:00. Conduce Lorenzo Magoni con la partecipazione di Rebecca Cabrini.",
+      "image": "radio.png",
+      "link": "https://zeno.fm/podcast/radio-future-il-podcast/"
+    },
+    {
+      "title": "Il Podcast di JACK! SI GIRA",
+      "description": "Ogni giovedì dalle 17:00 su Radio Future. Giacomo \"Jack\" Bettinelli racconta il cinema attraverso storie, colonne sonore e collegamenti tra film iconici. Dopo la diretta, ogni giovedì alle 18:00 un nuovo episodio disponibile online.",
+      "image": "jack.jpg",
+      "link": "https://zeno.fm/podcast/il-podcast-di-jack-si-gira/"
+    }
+  ]
+}

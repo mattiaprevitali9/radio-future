@@ -1,0 +1,267 @@
+/* ===========================
+   GOOGLE FONTS
+=========================== */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ===========================
+   ROOT VARIABLES
+=========================== */
+:root {
+  --bg-main: #060b16;
+  --bg-secondary: #0d1426;
+  --bg-card: rgba(255, 255, 255, 0.04);
+
+  --accent: #00f2ff;
+  --accent-2: #7c7cff;
+  --accent-glow: rgba(0, 242, 255, 0.35);
+
+  --text-main: #f2f4ff;
+  --text-muted: #9aa3c7;
+
+  --radius: 16px;
+  --transition: 0.35s cubic-bezier(.4,0,.2,1);
+}
+
+/* ===========================
+   RESET
+=========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background:
+    radial-gradient(circle at top, #0d1430, var(--bg-main)),
+    linear-gradient(180deg, #060b16, #040710);
+  color: var(--text-main);
+  line-height: 1.65;
+}
+
+/* ===========================
+   CONTAINER
+=========================== */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 70px 22px;
+}
+
+/* ===========================
+   NAVBAR (GLASS)
+=========================== */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(6, 11, 22, 0.65);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 22px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: 1.2px;
+  color: var(--accent);
+  text-shadow: 0 0 15px var(--accent-glow);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 26px;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: var(--transition);
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transition: var(--transition);
+}
+
+.nav-links a:hover {
+  color: var(--text-main);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.mobile-menu-btn,
+.theme-toggle {
+  display: none;
+}
+
+/* ===========================
+   HERO
+=========================== */
+.hero {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(3rem, 7vw, 5rem);
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tagline {
+  color: var(--text-muted);
+  margin-bottom: 45px;
+  font-size: 1.15rem;
+}
+
+/* ===========================
+   PLAYER (NEON GLASS)
+=========================== */
+.player {
+  background: linear-gradient(
+    145deg,
+    rgba(255,255,255,0.06),
+    rgba(255,255,255,0.02)
+  );
+  backdrop-filter: blur(16px);
+  border-radius: var(--radius);
+  padding: 34px;
+  width: 340px;
+  margin: auto;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    0 0 40px rgba(0,242,255,0.12),
+    inset 0 0 20px rgba(255,255,255,0.02);
+}
+
+.now-playing {
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.program-name {
+  font-weight: 600;
+  margin-bottom: 26px;
+}
+
+.player a.button {
+  display: inline-block;
+  padding: 14px 26px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #000;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 999px;
+  box-shadow: 0 0 25px var(--accent-glow);
+  transition: var(--transition);
+}
+
+.player a.button:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 40px var(--accent-glow);
+}
+
+/* ===========================
+   GRID & CARD (FUTURE)
+=========================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+  margin-top: 40px;
+}
+
+.card {
+  background: var(--bg-card);
+  backdrop-filter: blur(14px);
+  border-radius: var(--radius);
+  padding: 28px;
+  transition: var(--transition);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.45);
+}
+
+.card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  margin-bottom: 10px;
+}
+
+.news-date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+/* ===========================
+   SECTION TITLES
+=========================== */
+section h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.1rem;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+section h2::after {
+  content: '';
+  width: 70px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  display: block;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (max-width: 900px) {
+  .nav-links {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-size: 1.6rem;
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "schedule": [
+    {
+      "time": "06:00-12:00",
+      "monday": "Musica Non-Stop",
+      "tuesday": "Musica Non-Stop",
+      "wednesday": "Musica Non-Stop",
+      "thursday": "Musica Non-Stop",
+      "friday": "Musica Non-Stop",
+      "saturday": "Musica Non-Stop",
+      "sunday": "Musica Non-Stop"
+    },
+    {
+      "time": "17:00-18:00",
+      "monday": "Libero",
+      "tuesday": "Libero",
+      "wednesday": "Libero",
+      "thursday": "JACK! SI GIRA",
+      "friday": "Libero",
+      "saturday": "Libero",
+      "sunday": "Libero"
+    }
+  ]
+}

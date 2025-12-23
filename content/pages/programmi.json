@@ -1,0 +1,21 @@
+{
+  "programs_list": [
+    {
+      "name": "JACK! SI GIRA",
+      "host": "Giacomo \"Jack\" Bettinelli",
+      "schedule": "Giovedì • 17:00 — 18:00",
+      "description": "Il programma sul cinema con Giacomo \"Jack\" Bettinelli: storie, colonne sonore e grandi film.",
+      "instagram": "#",
+      "twitter": "#",
+      "other": "#"
+    },
+    {
+      "name": "RADIO FUTURE: IL PODCAST",
+      "host": "Lorenzo Magoni e Rebecca Cabrini",
+      "schedule": "Mensile • Lunedì • 16:00",
+      "description": "Il podcast ufficiale di Radio Future con Lorenzo Magoni e Rebecca Cabrini.",
+      "instagram": "#",
+      "twitter": ""
+    }
+  ]
+}

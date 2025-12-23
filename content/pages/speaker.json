@@ -1,0 +1,20 @@
+{
+  "speakers": [
+    {
+      "name": "Marco Rossi",
+      "emoji": "🎧",
+      "program": "Wake Up Future",
+      "bio": "Voce storica di Radio Future, appassionato di new media e cultura digitale. Da 5 anni accompagna le mattine degli ascoltatori con energia e ironia.",
+      "instagram": "#",
+      "twitter": "#"
+    },
+    {
+      "name": "Sara Bianchi",
+      "emoji": "🎵",
+      "program": "Wake Up Future",
+      "bio": "Giornalista musicale e DJ, porta in radio le ultime novità dal mondo indie e underground. La sua passione è contagiosa!",
+      "instagram": "#",
+      "twitter": ""
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <link rel="icon" type="image/x-icon" href="log.ico">
+  <meta charset="UTF-8">
+  <title>Chi siamo - Radio Future</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    .logo img {
+      height: 40px;
+      width: auto;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="logo">
+      <img src="logo.jpeg" alt="Radio Future Logo">
+      <span>RADIO FUTURE</span>
+    </div>
+    <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="chi-siamo.html">Chi siamo</a></li>
+      <li><a href="palinsesto.html">Palinsesto</a></li>
+      <li><a href="programmi.html">Programmi</a></li>
+      <li><a href="podcast.html">Podcast</a></li>
+      <li><a href="speaker.html">Speaker</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  </div>
+</nav>
+
+<section class="container">
+  <h2>Chi Siamo</h2>
+  <div class="card" style="line-height:1.7; font-size:1.05rem;">
+    <p><strong>La web-radio più giovane d'Italia</strong>, in onda tutti i giorni 24 ore su 24.</p>
+    <p>Siamo <strong>Radio Future</strong>: la radio più giovane d'Italia. Ogni giorno, 24 ore su 24, tanta musica italiana ed internazionale, di oggi e del passato.</p>
+  </div>
+</section>
+
+<script>
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('active');
+}
+function toggleTheme() {
+  document.body.classList.toggle('dark-theme');
+}
+</script>
+
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+async function loadChiSiamoContent() {
+  try {
+    const res = await fetch('/content/pages/chi-siamo.json');
+    if (res.ok) {
+      const data = await res.json();
+      const mainContainer = document.querySelector('section.container');
+      if (mainContainer) {
+        let html = '<h2>Chi Siamo</h2>';
+        html += '<section class="intro-section"><div class="card" style="line-height:1.7; font-size:1.05rem;">';
+        if (data.intro_main) html += `<p><strong>${data.intro_main}</strong>, in onda tutti i giorni 24 ore su 24.</p>`;
+        if (data.description) html += `<p>${data.description}</p>`;
+        html += '</div></section>';
+        if (data.special_programs && data.special_programs.length > 0) {
+          html += '<section class="programs-section"><div class="card" style="line-height:1.7; font-size:1.05rem;">';
+          data.special_programs.forEach(prog => {
+            html += `<p><strong>${prog.schedule}</strong>:<br><strong>${prog.name}</strong> — ${prog.description}</p>`;
+          });
+          html += '</div></section>';
+        }
+        if (data.football_title) {
+          html += '<section class="football-section"><div class="card" style="line-height:1.7; font-size:1.05rem;"><hr style="margin:2rem 0;"><h3>' + data.football_title + '</h3><ul>';
+          if (data.football_events) {
+            data.football_events.forEach(event => {
+              html += `<li><strong>${event.name}</strong>: ${event.description}</li>`;
+            });
+          }
+          html += '</ul></div></section>';
+        }
+        if (data.news_2026) {
+          html += `<section class="news-section"><div class="card" style="line-height:1.7; font-size:1.05rem;"><p><strong>Novità 2026</strong>: ${data.news_2026}</p></div></section>`;
+        }
+        if (data.final_message) {
+          html += `<section class="final-section"><div class="card" style="line-height:1.7; font-size:1.05rem;"><p style="font-weight:bold; text-align:center; margin-top:2rem;">${data.final_message}</p></div></section>`;
+        }
+        mainContainer.innerHTML = html;
+      }
+    }
+  } catch (e) { console.log('Default'); }
+}
+loadChiSiamoContent();
+</script>
+
+</body>
+</html>

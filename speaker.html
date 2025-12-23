@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <link rel="icon" type="image/x-icon" href="log.ico">
+  <meta charset="UTF-8">
+  <title>Speaker - Radio Future</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    .logo img {
+      height: 40px;
+      width: auto;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="logo">
+      <img src="logo.jpeg" alt="Radio Future Logo">
+      <span>RADIO FUTURE</span>
+    </div>
+    <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="chi-siamo.html">Chi siamo</a></li>
+      <li><a href="palinsesto.html">Palinsesto</a></li>
+      <li><a href="programmi.html">Programmi</a></li>
+      <li><a href="podcast.html">Podcast</a></li>
+      <li><a href="speaker.html">Speaker</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  </div>
+</nav>
+
+<section class="container">
+  <h2>🎤 Il Nostro Team</h2>
+  <div class="grid">
+    <div class="card speaker-card">
+      <div class="speaker-avatar">🎧</div>
+      <h3>Marco Rossi</h3>
+      <p><strong>Wake Up Future</strong></p>
+      <p>Voce storica di Radio Future, appassionato di new media e cultura digitale.</p>
+      <div class="social-links">
+        <a href="#">📷</a>
+        <a href="#">🦅</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('active');
+}
+function toggleTheme() {
+  document.body.classList.toggle('dark-theme');
+}
+</script>
+
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+async function loadSpeakerContent() {
+  try {
+    const res = await fetch('/content/pages/speaker.json');
+    if (res.ok) {
+      const data = await res.json();
+      const mainSection = document.querySelector('section.container');
+      if (mainSection && data.speakers && data.speakers.length > 0) {
+        let html = '<h2>🎤 Il Nostro Team</h2>';
+        html += '<section class="speakers-section"><div class="grid">';
+        data.speakers.forEach(speaker => {
+          let socialLinks = '';
+          if (speaker.instagram) socialLinks += `<a href="${speaker.instagram}">📷</a>`;
+          if (speaker.twitter) socialLinks += `<a href="${speaker.twitter}">🦅</a>`;
+          html += `<div class="card speaker-card"><div class="speaker-avatar">${speaker.emoji}</div><h3>${speaker.name}</h3><p><strong>${speaker.program}</strong></p><p>${speaker.bio}</p>${socialLinks ? '<div class="social-links">' + socialLinks + '</div>' : ''}</div>`;
+        });
+        html += '</div></section>';
+        mainSection.innerHTML = html;
+      }
+    }
+  } catch (e) { console.log('Default'); }
+}
+loadSpeakerContent();
+</script>
+
+</body>
+</html>
